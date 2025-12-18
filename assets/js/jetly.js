@@ -269,50 +269,54 @@
     );
   }
 
-  // Accrodion
-  if ($(".accrodion-grp").length) {
-    var accrodionGrp = $(".accrodion-grp");
-    accrodionGrp.each(function () {
-      var accrodionName = $(this).data("grp-name");
-      var Self = $(this);
-      var accordion = Self.find(".accrodion");
-      Self.addClass(accrodionName);
-      Self.find(".accrodion .accrodion-content").hide();
-      Self.find(".accrodion.active").find(".accrodion-content").show();
-      accordion.each(function () {
-        $(this)
-          .find(".accrodion-title")
-          .on("click", function () {
-            if ($(this).parent().hasClass("active") === false) {
-              $(".accrodion-grp." + accrodionName)
-                .find(".accrodion")
-                .removeClass("active");
-              $(".accrodion-grp." + accrodionName)
-                .find(".accrodion")
-                .find(".accrodion-content")
-                .slideUp();
-              $(this).parent().addClass("active");
-              $(this).parent().find(".accrodion-content").slideDown();
-            }
-          });
-      });
+  // Accrodion (FAQ / Toggle)
+if ($(".accrodion-grp").length) {
+  var accrodionGrp = $(".accrodion-grp");
+
+  accrodionGrp.each(function () {
+    var accrodionName = $(this).data("grp-name");
+    var Self = $(this);
+    var accordion = Self.find(".accrodion");
+
+    // adiciona a classe do grupo
+    Self.addClass(accrodionName);
+
+    // esconde todos os conteúdos
+    Self.find(".accrodion .accrodion-content").hide();
+
+    // se algum vier com .active no HTML, abre ele
+    Self.find(".accrodion.active")
+      .children(".accrodion-content")
+      .show();
+
+    accordion.each(function () {
+      $(this)
+        .find(".accrodion-title")
+        .on("click", function () {
+
+          var parentAcc = $(this).parent();
+          var content = parentAcc.find(".accrodion-content");
+
+          // 👉 SE JÁ ESTIVER ABERTO → FECHA
+          if (parentAcc.hasClass("active")) {
+            parentAcc.removeClass("active");
+            content.slideUp();
+          }
+          // 👉 SE ESTIVER FECHADO → FECHA OS OUTROS E ABRE ESTE
+          else {
+            $(".accrodion-grp." + accrodionName)
+              .find(".accrodion")
+              .removeClass("active")
+              .find(".accrodion-content")
+              .slideUp();
+
+            parentAcc.addClass("active");
+            content.slideDown();
+          }
+        });
     });
-  }
-
-
-  if ($(".scroll-to-target").length) {
-    $(".scroll-to-target").on("click", function () {
-      var target = $(this).attr("data-target");
-      // animate
-      $("html, body").animate({
-          scrollTop: $(target).offset().top
-        },
-        1000
-      );
-
-      return false;
-    });
-  }
+  });
+}
 
 
   if ($(".contact-form-validated").length) {
