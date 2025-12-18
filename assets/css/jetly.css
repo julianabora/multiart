@@ -11511,6 +11511,20 @@ body.boxed-wrapper {
 
  .logo-box a{ color: #fe8535;font-size: 18px;font-weight: 600;}
 
+ .video-responsive {
+  width: 100%;
+  max-width: 840px; /* limite no desktop */
+  margin: 0 auto;   /* centraliza */
+}
+
+.video-responsive video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px; /* opcional, deixa mais moderno */
+}
+
+
 
 @media( max-width: 1024px){.about-two__img-one img{margin-top: 30px}}
  
